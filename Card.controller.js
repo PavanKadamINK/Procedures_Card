@@ -1,12 +1,13 @@
 sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
-], function (MessageToast, Controller, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+   "./formatter"
+], function (MessageToast, Controller, JSONModel, Formatter) {
     "use strict";
 
     return Controller.extend("com.winslow.yve.Environmental_Operational_ProjectMan_System.Card", {
-
+        Formatter: Formatter,
         onInit: function () {
             this.TileData = [
                 { type: "System", title: "Leadership and Commitment", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-01%20Leadership%20and%20Commitment.pdf" },
@@ -93,13 +94,66 @@ sap.ui.define([
                 success: function (oData) {
                     debugger;
                     var tileData = this.TileData.filter(i => i.type === oData.Title);
-                    let oModel = new JSONModel({ cards: tileData , Title : oData.Title});
+                    let oModel = new JSONModel({ cards: tileData, Title: oData.Title });
                     this.getView().setModel(oModel, "cardModel");
                     oView.setBusy(false);
                 }.bind(this),
                 error: function (oError) {
                     debugger;
                     MessageToast.show("Error fetching NavTabs, check console logs for more details");
+                    oView.setBusy(false);
+                }
+            });
+        },
+
+        handleFilePress: function (oEvent) {
+            debugger;
+            const oView = this.getView();
+            oView.setBusy(true);
+            var oControl = oEvent.getSource();
+            var displayText = oControl.getBindingContext("cardModel").getProperty("/cards/0/title") || "";
+            if (displayText === "Sewer Construction") displayText = "Sewer Tech";
+            if (displayText === "Water Main Construction") displayText = "Water Tech";
+
+            this.getOwnerComponent().getModel().read("/GetFPGrpID", {
+                success: function (oData) {
+                    const grpID = oData.GetFPGrpID;
+                    if (!grpID) {
+                        oView.setBusy(false);
+                        return MessageToast.show("Group ID of Forms & Procedures not found");
+                    }
+                    this.getOwnerComponent().getModel("JAM").read(`/Search`, {
+                        urlParameters: {
+                            "Query": "'" + displayText + "'",
+                            "Group": "'" + grpID + "'",
+                            "Category": "'workpages'",
+                            "$expand": "ObjectReference",
+                            "$select": "ObjectReference/Title,ObjectReference/WebURL,ObjectReference/Type",
+                        },
+                        success: function (oData) {
+                            debugger
+                            var oFoundItem = oData.results.find(function (item) {
+                                var sTitle = item.ObjectReference.Title || "";
+                                var sType = item.ObjectReference.Type || "";
+                                return sTitle.toLowerCase().trim() === displayText.toLowerCase().trim() && sType === "NavTab";
+                            });
+                            if (oFoundItem) {
+                                window.location.href = oFoundItem.ObjectReference.WebURL + "?headless=true&title=" + encodeURIComponent(displayText);
+                            } else {
+                                MessageToast.show("No item found with Title '" + displayText + "' and Type 'NavTab'.");
+                            }
+                            oView.setBusy(false);
+                        }.bind(this),
+                        error: function (oError) {
+                            MessageToast.show("Error fetching NavTabs, check console logs for more details");
+                            console.log(oError);
+                            oView.setBusy(false);
+                        }
+                    });
+                }.bind(this),
+                error: function (oError) {
+                    MessageToast.show("Error fetching Group ID, check console logs for more details");
+                    console.log(oError);
                     oView.setBusy(false);
                 }
             });

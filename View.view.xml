@@ -4,18 +4,41 @@
           displayBlock="true"
           controllerName="com.winslow.yve.Environmental_Operational_ProjectMan_System.Card">
 
-    <VBox class="sapUiSmallMargin">
+        <VBox class="sapUiSmallMargin">
+    <!-- Main Title -->
+    <Title text="{cardModel>/Title}" level="H1" class="Title sapUiMediumMargin" />
+
+    <!-- List -->
+    <List id="idOTFilesList" width="100%" growing="true" items="{cardModel>/cards}">
+        <items>
+            <CustomListItem type="Active" press="handleFilePress">
+                <HBox alignItems="Center" class="sapUiSmallMargin">
+                    <!-- File Icon with margin -->
+                    <core:Icon src="sap-icon://document" size="2rem" class="sapUiSmallMarginEnd" />
+
+                    <!-- Texts -->
+                    <VBox class="sapUiSmallMarginBegin">
+                        <Title text="{cardModel>title}" wrapping="true" class="boldText" />
+                    </VBox>
+                </HBox>
+            </CustomListItem>
+        </items>
+    </List>
+</VBox>
+
+
+    <!-- <VBox class="sapUiSmallMargin">
 
         <Title text="{cardModel>/Title}" level="H1" class="Title sapUiMediumMargin"/>
 
-        <FlexBox  wrap="Wrap"  justifyContent="Start" alignItems="Stretch" width="100%" items="{cardModel>/cards}">
+        <FlexBox  wrap="Wrap" justifyContent="Start" alignItems="Stretch" width="100%" items="{cardModel>/cards}">
 
             <VBox class="customBox">
-                <Link text="{cardModel>title}" wrapping="true" class="boxText sapUiTinyMargin" href="{cardModel>url}" target="_blank" />            
+                <Link text="{cardModel>title}" wrapping="true" class="boxText sapUiTinyMargin" press="onPressCard"/>            
             </VBox>
 
         </FlexBox>
 
-    </VBox>
+    </VBox> -->
 
 </mvc:View>
