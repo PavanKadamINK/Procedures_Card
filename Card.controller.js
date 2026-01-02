@@ -9,6 +9,7 @@ sap.ui.define([
     return Controller.extend("com.winslow.yve.Environmental_Operational_ProjectMan_System.Card", {
         Formatter: Formatter,
         onInit: function () {
+            debugger;
             this.TileData = [
                 { type: "System", title: "Leadership and Commitment", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-01%20Leadership%20and%20Commitment.pdf" },
                 { type: "System", title: "Project Planning, Management, and Execution", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-02%20Project%20Planning%2C%20Management%20and%20Execution.pdf" },
@@ -29,7 +30,7 @@ sap.ui.define([
                 { type: "System", title: "Procurement of Goods and Services", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-17%20Procurement%20of%20Goods%20and%20Services%20.pdf" },
                 { type: "System", title: "Change Management Procedure", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-18%20Change%20Management%20Procedure.pdf" },
 
-                { type: "Operational", title: "Confined Spaces", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-01%20Confined%20Spaces%20R4.pdf" },
+                { type: "Operational", title: "Confined Space", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-01%20Confined%20Spaces%20R4.pdf" },
                 { type: "Operational", title: "Plant and Equipment", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-02%20Plant%20and%20Equipment.pdf" },
                 { type: "Operational", title: "Excavation and Trenching", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-03%20Excavation%20%26%20Trenching.pdf" },
                 { type: "Operational", title: "Inspection and Testing", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-04%20Inspection%20and%20Testing.pdf" },
@@ -115,9 +116,9 @@ sap.ui.define([
             if (displayText === "Sewer Construction") displayText = "Sewer Tech";
             if (displayText === "Water Main Construction") displayText = "Water Tech";
 
-            this.getOwnerComponent().getModel().read("/GetFPGrpID", {
-                success: function (oData) {
-                    const grpID = oData.GetFPGrpID;
+            // this.getOwnerComponent().getModel().read("/GetFPGrpID", {
+            //     success: function (oData) {
+                    const grpID = this.getView().getModel("cardData").getData().GroupId;
                     if (!grpID) {
                         oView.setBusy(false);
                         return MessageToast.show("Group ID of Forms & Procedures not found");
@@ -150,13 +151,13 @@ sap.ui.define([
                             oView.setBusy(false);
                         }
                     });
-                }.bind(this),
-                error: function (oError) {
-                    MessageToast.show("Error fetching Group ID, check console logs for more details");
-                    console.log(oError);
-                    oView.setBusy(false);
-                }
-            });
+            //     }.bind(this),
+            //     error: function (oError) {
+            //         MessageToast.show("Error fetching Group ID, check console logs for more details");
+            //         console.log(oError);
+            //         oView.setBusy(false);
+            //     }
+            // });
         },
     });
 });

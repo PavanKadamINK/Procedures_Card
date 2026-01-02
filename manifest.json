@@ -11,7 +11,11 @@
 	},
 	"sap.ui": {
 		"technology": "UI5",
-        "deviceTypes": {"desktop": true, "phone": true, "tablet": true},
+		"deviceTypes": {
+			"desktop": true,
+			"phone": true,
+			"tablet": true
+		},
 		"icons": {
 			"icon": "sap-icon://technical-object"
 		}
@@ -39,12 +43,18 @@
 	},
 	"sap.card": {
 		"type": "Component",
-        "designtime": "dt/configuration",
+		"designtime": "dt/configuration",
 		"header": {
-			"title": "Visit our workshop",
-			"visible":false
+			"title": "{GroupId}",
+			"visible": false
 		},
 		"configuration": {
+			"parameters": {
+				"GroupId": {
+					"type": "string",
+					"label": "Group ID"
+				}
+			},
 			"destinations": {
 				"JAM": {
 					"name": "JAM",
@@ -57,7 +67,7 @@
 			}
 		}
 	},
-    "sap.platform.mobilecards": {
-        "compatible": false
-    }
+	"sap.platform.mobilecards": {
+		"compatible": false
+	}
 }

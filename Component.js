@@ -11,8 +11,17 @@ sap.ui.define([
 				manifest: "json"
 			},
 			onCardReady: function (oCard) {
+				debugger;
+				// ✅ Get GroupId passed from host / card configuration
+				var sGroupId = oCard.getManifestEntry("sap.card").header.title || "ZXh1H0w85WvrL2yEX1B01k";
+				var oCardModel = new sap.ui.model.json.JSONModel({GroupId: sGroupId});
+				this.setModel(oCardModel, "cardData");
+
 				oCard.resolveDestination("JAM").then(function (sResolvedUrl) {
-					if (sResolvedUrl.endsWith("/")) { sResolvedUrl = sResolvedUrl.slice(0, -1); }
+					if (sResolvedUrl.endsWith("/")) {
+						sResolvedUrl = sResolvedUrl.slice(0, -1);
+					}
+
 					var sServiceUrl = sResolvedUrl + "/api/v1/OData/";
 					var oModel = new ODataModel(sServiceUrl, {
 						useBatch: true,
@@ -21,16 +30,15 @@ sap.ui.define([
 						tokenHandling: true,
 						withCredentials: true
 					});
-					oModel.attachMetadataFailed(function (oEvent) {
-						console.error("OData Metadata Failed", oEvent.getParameters());
-					});
+
 					this.setModel(oModel, "JAM");
-				}.bind(this)).catch(function (sError) {
-					console.error("Destination Resolution Failed", sError);
-				});
+				}.bind(this));
 
 				oCard.resolveDestination("BMSPortal_API").then(function (sResolvedUrl) {
-					if (sResolvedUrl.endsWith("/")) { sResolvedUrl = sResolvedUrl.slice(0, -1); }
+					if (sResolvedUrl.endsWith("/")) {
+						sResolvedUrl = sResolvedUrl.slice(0, -1);
+					}
+
 					var sServiceUrl = sResolvedUrl + "/v2/odata/v4/main/";
 					var oModel = new ODataModel(sServiceUrl, {
 						useBatch: true,
@@ -39,14 +47,11 @@ sap.ui.define([
 						tokenHandling: true,
 						withCredentials: true
 					});
-					oModel.attachMetadataFailed(function (oEvent) {
-						console.error("OData Metadata Failed", oEvent.getParameters());
-					});
+
 					this.setModel(oModel);
-				}.bind(this)).catch(function (sError) {
-					console.error("Destination Resolution Failed", sError);
-				});
+				}.bind(this));
 			}
+
 		});
 
 		return Component;
