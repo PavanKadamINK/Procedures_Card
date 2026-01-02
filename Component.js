@@ -13,7 +13,8 @@ sap.ui.define([
 			onCardReady: function (oCard) {
 				debugger;
 				// ✅ Get GroupId passed from host / card configuration
-				var sGroupId = oCard.getManifestEntry("sap.card").header.title || "ZXh1H0w85WvrL2yEX1B01k";
+				var oParams = oCard.getManifestEntry("sap.card").configuration.parameters;
+                var sGroupId = oParams?.GroupId?.value || "ZXh1H0w85WvrL2yEX1B01k";
 				var oCardModel = new sap.ui.model.json.JSONModel({GroupId: sGroupId});
 				this.setModel(oCardModel, "cardData");
 

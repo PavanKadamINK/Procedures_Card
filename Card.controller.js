@@ -118,7 +118,7 @@ sap.ui.define([
 
             // this.getOwnerComponent().getModel().read("/GetFPGrpID", {
             //     success: function (oData) {
-                    const grpID = this.getView().getModel("cardData").getData().GroupId;
+                    const grpID = this.getView().getModel("cardData").getProperty("/GroupId");
                     if (!grpID) {
                         oView.setBusy(false);
                         return MessageToast.show("Group ID of Forms & Procedures not found");
