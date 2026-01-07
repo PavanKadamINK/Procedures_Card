@@ -48,4 +48,5 @@
 }
 .boldText {
     font-weight: bold;
+    cursor: pointer;
 }
