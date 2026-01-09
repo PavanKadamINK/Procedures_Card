@@ -113,8 +113,8 @@ sap.ui.define([
             oView.setBusy(true);
             var oControl = oEvent.getSource();
             var displayText = oControl.getBindingContext("cardModel").getObject().title || "";
-            if (displayText === "Sewer Construction") displayText = "Sewer Tech";
-            if (displayText === "Water Main Construction") displayText = "Water Tech";
+            // if (displayText === "Sewer Construction") displayText = "Sewer Tech";
+            // if (displayText === "Water Main Construction") displayText = "Water Tech";
 
             // this.getOwnerComponent().getModel().read("/GetFPGrpID", {
             //     success: function (oData) {
