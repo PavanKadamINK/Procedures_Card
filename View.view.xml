@@ -2,43 +2,40 @@
           xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
           width="100%"
           displayBlock="true"
+          busyIndicatorDelay="0"
           controllerName="com.winslow.yve.Environmental_Operational_ProjectMan_System.Card">
 
-        <VBox class="sapUiSmallMargin">
-    <!-- Main Title -->
-    <Title text="{cardModel>/Title}" level="H1" class="Title sapUiMediumMargin" />
+        <!-- <VBox class="sapUiSmallMargin">
+            <Title text="{cardModel>/Title}" level="H1" class="Title sapUiMediumMargin" />
 
-    <!-- List -->
-    <List id="idOTFilesList" width="100%" growing="true" items="{cardModel>/cards}">
-        <items>
-            <CustomListItem type="Active" press="handleFilePress">
-                <HBox alignItems="Center" class="sapUiSmallMargin">
-                    <!-- File Icon with margin -->
-                    <core:Icon src="sap-icon://document" size="2rem" class="sapUiSmallMarginEnd" />
+            <List id="idOTFilesList" width="100%" growing="true" items="{cardModel>/cards}">
+                <items>
+                    <CustomListItem type="Active" press="handleFilePress">
+                        <HBox alignItems="Center" class="sapUiSmallMargin">
+                            <core:Icon src="sap-icon://document" size="2rem" class="sapUiSmallMarginEnd" />
 
-                    <!-- Texts -->
-                    <VBox class="sapUiSmallMarginBegin">
-                        <Title text="{cardModel>title}" wrapping="true" class="boldText" />
-                    </VBox>
-                </HBox>
-            </CustomListItem>
-        </items>
-    </List>
-</VBox>
+                            <VBox class="sapUiSmallMarginBegin">
+                                <Title text="{cardModel>title}" wrapping="true" class="boldText" />
+                            </VBox>
+                        </HBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </VBox> -->
 
 
-    <!-- <VBox class="sapUiSmallMargin">
+    <VBox class="sapUiSmallMargin">
 
         <Title text="{cardModel>/Title}" level="H1" class="Title sapUiMediumMargin"/>
 
-        <FlexBox  wrap="Wrap" justifyContent="Start" alignItems="Stretch" width="100%" items="{cardModel>/cards}">
+        <FlexBox id="myClickableVBox" wrap="Wrap" justifyContent="Start" alignItems="Stretch" width="100%" items="{cardModel>/cards}">
 
-            <VBox class="customBox">
+            <VBox class="customBox" >
                 <Link text="{cardModel>title}" wrapping="true" class="boxText sapUiTinyMargin" press="onPressCard"/>            
             </VBox>
 
         </FlexBox>
 
-    </VBox> -->
+    </VBox>
 
 </mvc:View>

@@ -2,7 +2,7 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-   "./formatter"
+    "./formatter"
 ], function (MessageToast, Controller, JSONModel, Formatter) {
     "use strict";
 
@@ -10,25 +10,34 @@ sap.ui.define([
         Formatter: Formatter,
         onInit: function () {
             debugger;
+            var oVBox = this.getView().byId("myClickableVBox");
+
+            oVBox.addEventDelegate({
+                onclick: function (oEvent) {
+                    // Trigger your logic here
+                    this.onPressCard(oEvent);
+                }.bind(this)
+            });
+            
             this.TileData = [
-                { type: "System", title: "Leadership and Commitment", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-01%20Leadership%20and%20Commitment.pdf" },
+                { type: "System", title: "Leadership and Commitment",  },
                 { type: "System", title: "Project Planning, Management, and Execution", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-02%20Project%20Planning%2C%20Management%20and%20Execution.pdf" },
                 { type: "System", title: "Communication, Consulting, and Reporting", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-03%20%20Communication%20Consultation%20and%20Reporting.pdf" },
-                { type: "System", title: "Environmental Aspects and Impacts", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-05%20Control%20of%20Data%20and%20Documented%20Information.pdf" },
+                { type: "System", title: "Environmental Risk Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-05%20Control%20of%20Data%20and%20Documented%20Information.pdf" },
                 { type: "System", title: "Control of Data and Document Information", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-04%20Environmental%20Aspects%20and%20Impacts.pdf" },
-                { type: "System", title: "Health and Safety RAC", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-06%20Health%20and%20Safety%20RAC.pdf" },
+                { type: "System", title: "HIRAC", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-06%20Health%20and%20Safety%20RAC.pdf" },
                 { type: "System", title: "Legal and Other Requirements", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-07%20Legal%20and%20Other%20Requirements.pdf" },
-                { type: "System", title: "Emergency and IPR", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-08%20Emergency%20and%20IPR.pdf" },
+                { type: "System", title: "Emergency & Incident Preparedness and Response", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-08%20Emergency%20and%20IPR.pdf" },
                 { type: "System", title: "Competence Awareness and Training", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-09%20Competence%20Awareness%20and%20Training.pdf" },
                 { type: "System", title: "Tenders and Contracts", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-10%20Tenders%20and%20Contracts.pdf" },
-                { type: "System", title: "Non-conformance and Corrective Action", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-11%20Non%20Conformance%20and%20Corrective%20Action.pdf" },
-                { type: "System", title: "Management of Subcontractors", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-12%20Management%20of%20Sub%20Contractors.pdf" },
+                { type: "System", title: "Management of Non-Conformance", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-11%20Non%20Conformance%20and%20Corrective%20Action.pdf" },
+                { type: "System", title: "Sub-Contractor Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-12%20Management%20of%20Sub%20Contractors.pdf" },
                 { type: "System", title: "Auditing Management Systems", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-13%20Auditing%20Management%20Systems.pdf" },
                 { type: "System", title: "Human Resources Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-14%20Human%20Resources%20Management.pdf" },
-                { type: "System", title: "Monitoring and Measurement", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-15%20Monitoring%20and%20Measurement.pdf" },
+                { type: "System", title: "Monitoring, Measurement and Analysis", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-15%20Monitoring%20and%20Measurement.pdf" },
                 { type: "System", title: "Management Review", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-16%20Management%20Review.pdf" },
                 { type: "System", title: "Procurement of Goods and Services", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-17%20Procurement%20of%20Goods%20and%20Services%20.pdf" },
-                { type: "System", title: "Change Management Procedure", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-18%20Change%20Management%20Procedure.pdf" },
+                { type: "System", title: "Change Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-18%20Change%20Management%20Procedure.pdf" },
 
                 { type: "Operational", title: "Confined Space", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-01%20Confined%20Spaces%20R4.pdf" },
                 { type: "Operational", title: "Plant and Equipment", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-OP-02%20Plant%20and%20Equipment.pdf" },
@@ -57,6 +66,14 @@ sap.ui.define([
 
 
                 { type: "Water Tech", title: "Water Main Construction", url: "" },
+                { type: "Water Tech", title: "Swabbing of Water Mains", url: "" },
+                { type: "Water Tech", title: "Pressure Testing of Water Mains", url: "" },
+                { type: "Water Tech", title: "Flushing of Water Mains", url: "" },
+                { type: "Water Tech", title: "Working with Barwon Water", url: "" },
+                { type: "Water Tech", title: "Working with City West Water", url: "" },
+                { type: "Water Tech", title: "Working with South East Water", url: "" },
+                { type: "Water Tech", title: "Working with Western Water", url: "" },
+                { type: "Water Tech", title: "Working with Yarra Valley Water", url: "" },
 
                 { type: "Sewer Tech", title: "Sewer Construction", url: "" },
 
@@ -107,50 +124,48 @@ sap.ui.define([
             });
         },
 
-        handleFilePress: function (oEvent) {
+        onPressCard: function (oEvent) {
             debugger;
             const oView = this.getView();
             oView.setBusy(true);
-            var oControl = oEvent.getSource();
+            var oControl = oControl = oEvent.getSource ? oEvent.getSource() : oEvent.srcControl;
             var displayText = oControl.getBindingContext("cardModel").getObject().title || "";
             // if (displayText === "Sewer Construction") displayText = "Sewer Tech";
-            // if (displayText === "Water Main Construction") displayText = "Water Tech";
+            // if (displayText === "Water Main C    onstruction") displayText = "Water Tech";
 
             // this.getOwnerComponent().getModel().read("/GetFPGrpID", {
             //     success: function (oData) {
-                    const grpID = this.getView().getModel("cardData").getProperty("/GroupId");
-                    if (!grpID) {
-                        oView.setBusy(false);
-                        return MessageToast.show("Group ID of Forms & Procedures not found");
-                    }
-                    this.getOwnerComponent().getModel("JAM").read(`/Search`, {
-                        urlParameters: {
-                            "Query": "'" + displayText + "'",
-                            "Group": "'" + grpID + "'",
-                            "Category": "'workpages'",
-                            "$expand": "ObjectReference",
-                            "$select": "ObjectReference/Title,ObjectReference/WebURL,ObjectReference/Type",
-                        },
-                        success: function (oData) {
-                            debugger
-                            var oFoundItem = oData.results.find(function (item) {
-                                var sTitle = item.ObjectReference.Title || "";
-                                var sType = item.ObjectReference.Type || "";
-                                return sTitle.toLowerCase().trim() === displayText.toLowerCase().trim() && sType === "NavTab";
-                            });
-                            if (oFoundItem) {
-                                window.location.href = oFoundItem.ObjectReference.WebURL + "?headless=true&title=" + encodeURIComponent(displayText);
-                            } else {
-                                MessageToast.show("No item found with Title '" + displayText + "' and Type 'NavTab'.");
-                            }
-                            oView.setBusy(false);
-                        }.bind(this),
-                        error: function (oError) {
-                            MessageToast.show("Error fetching NavTabs, check console logs for more details");
-                            console.log(oError);
-                            oView.setBusy(false);
-                        }
+            const grpID = this.getView().getModel("cardData").getProperty("/GroupId");
+            if (!grpID) {
+                oView.setBusy(false);
+                return MessageToast.show("Group ID of Forms & Procedures not found");
+            }
+            this.getOwnerComponent().getModel("JAM").read(`/Search`, {
+                urlParameters: {
+                    "Query": "'" + displayText + "'",
+                    "Group": "'" + grpID + "'",
+                    "Category": "'workpages'",
+                    "$expand": "ObjectReference",
+                    "$select": "ObjectReference/Title,ObjectReference/WebURL,ObjectReference/Type",
+                },
+                success: function (oData) {
+                    var oFoundItem = oData.results.find(function (item) {
+                        var sTitle = item.ObjectReference.Title || "";
+                        var sType = item.ObjectReference.Type || "";
+                        return sTitle.toLowerCase().trim() === displayText.toLowerCase().trim() && sType === "NavTab";
                     });
+                    if (oFoundItem) {
+                        window.location.href = oFoundItem.ObjectReference.WebURL + "?headless=true&title=" + encodeURIComponent(displayText);
+                    } else {
+                        MessageToast.show("No item found with Title '" + displayText + "' and Type 'NavTab'.");
+                    }
+                    oView.setBusy(false);
+                }.bind(this),
+                error: function (oError) {
+                    MessageToast.show("Error fetching NavTabs, check console logs for more details");
+                    oView.setBusy(false);
+                }
+            });
             //     }.bind(this),
             //     error: function (oError) {
             //         MessageToast.show("Error fetching Group ID, check console logs for more details");
