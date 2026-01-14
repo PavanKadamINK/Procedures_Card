@@ -1,7 +1,7 @@
 .customBox {
     width: 32%;
     min-height: 125px;
-    background-color: #ebebeb;
+    background-color: #888B8D;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,12 +35,11 @@
 }
 
 .boxText .sapMLnkText {
-    color: #000 !important;
+    color: #ffffff !important;
     text-shadow: none !important;
     opacity: 1 !important;
 }
 .customBox:hover .boxText .sapMLnkText {
-    color: #ffffff !important;
     text-shadow: none !important;
     opacity: 1 !important;
 }
