@@ -35,7 +35,7 @@ sap.ui.define([
 					this.setModel(oModel, "JAM");
 				}.bind(this));
 
-				oCard.resolveDestination("BMSPortal_API").then(function (sResolvedUrl) {
+				oCard.resolveDestination("BMSPortal_API_Token").then(function (sResolvedUrl) {
 					if (sResolvedUrl.endsWith("/")) {
 						sResolvedUrl = sResolvedUrl.slice(0, -1);
 					}

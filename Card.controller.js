@@ -18,9 +18,9 @@ sap.ui.define([
                     this.onPressCard(oEvent);
                 }.bind(this)
             });
-            
+
             this.TileData = [
-                { type: "System", title: "Leadership and Commitment",  },
+                { type: "System", title: "Leadership and Commitment", },
                 { type: "System", title: "Project Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-02%20Project%20Planning%2C%20Management%20and%20Execution.pdf" },
                 { type: "System", title: "Communication, Consulting, and Reporting", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-03%20%20Communication%20Consultation%20and%20Reporting.pdf" },
                 { type: "System", title: "Environmental Risk Management", url: "https://inkitsolutions1.sharepoint.com/sites/INKITSolutions/Shared Documents/General/WorkZone Requirment/../../../../../shared-services/YVE/Documents/YVEBMS-SP-05%20Control%20of%20Data%20and%20Documented%20Information.pdf" },
@@ -89,27 +89,49 @@ sap.ui.define([
             debugger;
             // Get the model from the Component
             var oODataModel = this.getOwnerComponent().getModel();
-
             // Check if the model is defined yet
             if (oODataModel) {
                 // 3. Success! Stop listening so this doesn't run again
                 this.getView().detachModelContextChange(this._onModelArrival, this);
-
                 // 4. Wait for metadata to be ready before calling .read()
                 oODataModel.metadataLoaded().then(function () {
                     this._loadData();
+                    this.AssignRole();
                 }.bind(this));
             }
         },
 
-        _loadData: function () {
+        AssignRole: function () {
+            var oModel = this.getOwnerComponent().getModel();
+
+            oModel.callFunction("/getUserRole", {
+                method: "GET",
+                success: function (oData) {
+                    debugger;
+                    var role = oData.getUserRole || "Winslow";
+
+                    var oFlex = this.byId("myClickableVBox");
+
+                    if (role === "YVE") {
+                        oFlex.addStyleClass("role-yve");
+                    } else {
+                        oFlex.addStyleClass("role-winslow");
+                    }
+                }.bind(this),
+                error: function () {
+                    sap.m.MessageToast.show("Failed to fetch user role");
+                }
+            });
+        },
+        
+        _loadData:async function () {
             debugger;
             var url = window.location.href;
             var id = url.split("workpage_tabs/")[1].split("?")[0];
             const oView = this.getView();
             oView.setBusy(true);
             this.getOwnerComponent().getModel("JAM").read(`/NavTabs('${id}')`, {
-                success: function (oData) {
+                success:async function (oData) {
                     debugger;
                     var tileData = this.TileData.filter(i => i.type === oData.Title);
                     let oModel = new JSONModel({ cards: tileData, Title: oData.Title });
@@ -123,18 +145,14 @@ sap.ui.define([
                 }
             });
         },
-
+        
         onPressCard: function (oEvent) {
             debugger;
             const oView = this.getView();
             oView.setBusy(true);
             var oControl = oControl = oEvent.getSource ? oEvent.getSource() : oEvent.srcControl;
             var displayText = oControl.getBindingContext("cardModel").getObject().title || "";
-            // if (displayText === "Sewer Construction") displayText = "Sewer Tech";
-            // if (displayText === "Water Main C    onstruction") displayText = "Water Tech";
 
-            // this.getOwnerComponent().getModel().read("/GetFPGrpID", {
-            //     success: function (oData) {
             const grpID = this.getView().getModel("cardData").getProperty("/GroupId");
             if (!grpID) {
                 oView.setBusy(false);
@@ -166,13 +184,7 @@ sap.ui.define([
                     oView.setBusy(false);
                 }
             });
-            //     }.bind(this),
-            //     error: function (oError) {
-            //         MessageToast.show("Error fetching Group ID, check console logs for more details");
-            //         console.log(oError);
-            //         oView.setBusy(false);
-            //     }
-            // });
+
         },
     });
 });
