@@ -9,7 +9,7 @@ sap.ui.define([
     return Controller.extend("com.winslow.yve.Environmental_Operational_ProjectMan_System.Card", {
         Formatter: Formatter,
         onInit: function () {
-            debugger;
+            // debugger;
             var oVBox = this.getView().byId("myClickableVBox");
 
             oVBox.addEventDelegate({
@@ -86,7 +86,7 @@ sap.ui.define([
         },
 
         _onModelArrival: function () {
-            debugger;
+            // debugger;
             // Get the model from the Component
             var oODataModel = this.getOwnerComponent().getModel();
             // Check if the model is defined yet
@@ -107,7 +107,7 @@ sap.ui.define([
             oModel.callFunction("/getUserRole", {
                 method: "GET",
                 success: function (oData) {
-                    debugger;
+                    // debugger;
                     var role = oData.getUserRole || "Winslow";
 
                     var oFlex = this.byId("myClickableVBox");
@@ -125,29 +125,29 @@ sap.ui.define([
         },
         
         _loadData:async function () {
-            debugger;
+            // debugger;
             var url = window.location.href;
             var id = url.split("workpage_tabs/")[1].split("?")[0];
             const oView = this.getView();
             oView.setBusy(true);
             this.getOwnerComponent().getModel("JAM").read(`/NavTabs('${id}')`, {
                 success:async function (oData) {
-                    debugger;
+                    // debugger;
                     var tileData = this.TileData.filter(i => i.type === oData.Title);
                     let oModel = new JSONModel({ cards: tileData, Title: oData.Title });
                     this.getView().setModel(oModel, "cardModel");
                     oView.setBusy(false);
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
-                    MessageToast.show("Error fetching NavTabs, check console logs for more details");
+                    // debugger;
+                    MessageToast.show("No item found with Title");
                     oView.setBusy(false);
                 }
             });
         },
         
         onPressCard: function (oEvent) {
-            debugger;
+            // debugger;
             const oView = this.getView();
             oView.setBusy(true);
             var oControl = oControl = oEvent.getSource ? oEvent.getSource() : oEvent.srcControl;
@@ -180,7 +180,7 @@ sap.ui.define([
                     oView.setBusy(false);
                 }.bind(this),
                 error: function (oError) {
-                    MessageToast.show("Error fetching NavTabs, check console logs for more details");
+                    MessageToast.show("No item found with Title");
                     oView.setBusy(false);
                 }
             });
