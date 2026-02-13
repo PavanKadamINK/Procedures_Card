@@ -11,7 +11,6 @@ sap.ui.define([
 				manifest: "json"
 			},
 			onCardReady: function (oCard) {
-				debugger;
 				// ✅ Get GroupId passed from host / card configuration
 				var oParams = oCard.getManifestEntry("sap.card").configuration.parameters;
                 var sGroupId = oParams?.GroupId?.value || "ZXh1H0w85WvrL2yEX1B01k";
